@@ -6,7 +6,7 @@
 [coverage-url]: https://codecov.io/github/rusty1s/pytorch_geometric?branch=master
 
 <p align="center">
-  <img width="80%" src="https://raw.githubusercontent.com/rusty1s/pytorch_geometric/master/docs/source/_static/img/logo.svg?sanitize=true" />
+  <img width="40%" src="https://raw.githubusercontent.com/rusty1s/pytorch_geometric/master/docs/source/_static/img/logo.svg?sanitize=true" />
 </p>
 
 --------------------------------------------------------------------------------
@@ -44,32 +44,29 @@ We are constantly encouraged to make PyTorch Geometric even better.
 
 ## Installation
 
-If cuda is available, add CUDA to `$PATH` and `$CPATH` (note that your actual CUDA path may vary from `/usr/local/cuda`)
+Ensure that at least PyTorch 0.4.1 is installed and verify that `cuda/bin` and `cuda/include` are in your `$PATH` and `$CPATH` respectively, *e.g.*:
 
 ```
-$ PATH=/usr/local/cuda/bin:$PATH
+$ python -c "import torch; print(torch.__version__)"
+>>> 0.4.1
+
 $ echo $PATH
+>>> /usr/local/cuda/bin:...
 
-$ CPATH=/usr/local/cuda/install:$CPATH
 $ echo $CPATH
+>>> /usr/local/cuda/include:...
 ```
-
-and verify that `nvcc` is accessible from your terminal:
-
-```
-$ nvcc --version
-```
-
-Then install all needed packages:
 
 ```
 $ pip install cffi
 $ pip install --upgrade torch-scatter
-$ pip install --upgrade torch-unique
+$ pip install --upgrade torch-sparse
 $ pip install --upgrade torch-cluster
 $ pip install --upgrade torch-spline-conv
 $ pip install torch-geometric
 ```
+
+If you are running into any installation problems, please create an [issue](https://github.com/rusty1s/pytorch_geometric/issues).
 
 ## Running examples
 
@@ -86,7 +83,7 @@ Please cite our paper if you use this code in your own work:
 @inproceedings{Fey/etal/2018,
   title={{SplineCNN}: Fast Geometric Deep Learning with Continuous {B}-Spline Kernels},
   author={Fey, Matthias and Lenssen, Jan Eric and Weichert, Frank and M{\"u}ller, Heinrich},
-  booktitle={IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}
+  booktitle={IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
   year={2018},
 }
 ```

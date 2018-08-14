@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
 
-__version__ = '0.1.1'
+__version__ = '0.3.0'
 url = 'https://github.com/rusty1s/pytorch_geometric'
 
 install_requires = [
     'numpy',
     'scipy',
+    'networkx',
     'plyfile',
 ]
 setup_requires = ['pytest-runner']

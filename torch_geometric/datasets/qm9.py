@@ -10,8 +10,12 @@ class QM9(InMemoryDataset):
                'datasets/gdb9.tar.gz'
     mask_url = 'https://ndownloader.figshare.com/files/3195404'
 
-    def __init__(self, root, transform=None, pre_transform=None):
-        super(QM9, self).__init__(root, transform, pre_transform)
+    def __init__(self,
+                 root,
+                 transform=None,
+                 pre_transform=None,
+                 pre_filter=None):
+        super(QM9, self).__init__(root, transform, pre_transform, pre_filter)
         self.data, self.slices = torch.load(self.processed_paths[0])
 
     @property
@@ -31,11 +35,9 @@ class QM9(InMemoryDataset):
     def process(self):
         with open(self.raw_paths[0], 'r') as f:
             data_list = [parse_sdf(x) for x in f.read().split('$$$$\n')[:-1]]
-        print(len(data_list))
 
         with open(self.raw_paths[1], 'r') as f:
             y = parse_txt_array(f.read().split('\n')[1:-1], ',', 4, 16)
-            print(y.size())
 
         for i, data in enumerate(data_list):
             data.y = y[i].view(1, -1)
@@ -48,6 +50,9 @@ class QM9(InMemoryDataset):
             valid[invalid] = 0
             valid = valid.nonzero()
         data_list = [data_list[idx] for idx in valid]
+
+        if self.pre_filter is not None:
+            data_list = [data for data in data_list if self.pre_filter(data)]
 
         if self.pre_transform is not None:
             data_list = [self.pre_transform(data) for data in data_list]
